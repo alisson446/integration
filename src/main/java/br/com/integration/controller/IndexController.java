@@ -5,6 +5,7 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
 @Resource
+@Path(value = "/index")
 public class IndexController {
 
 	private final Result result;
@@ -17,5 +18,5 @@ public class IndexController {
 	public void index() {
 		result.include("nome", "alisson");
 	}
-
+	
 }

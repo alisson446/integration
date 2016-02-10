@@ -1,12 +1,16 @@
 package br.com.integration.model.contato;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
 import br.com.integration.model.ClienteEntity;
 
+@DiscriminatorColumn(name="DTYPE")
+@DiscriminatorValue("contato")
 @Entity
-public class Contato extends ClienteEntity {
+public class Contato extends ClienteEntity{
 	
 	@Column(name = "telefone", nullable = false) 
 	private String telefone;

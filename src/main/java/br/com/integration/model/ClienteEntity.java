@@ -18,7 +18,7 @@ public class ClienteEntity {
 	
 	@Column(name = "nome", nullable = false)
 	private String nome;
-
+	
 	public Long getId() {
 		return id;
 	}
