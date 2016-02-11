@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html ng-app="listaTele">
+<head>
+	<meta charset="UTF-8">
+	<title>Lista Telefônica</title>
+	<script type="text/javascript" src="lib/angular/angular.js"></script>
+	<script type="text/javascript" src="lib/angular/angular-resource.js"></script>
+	<script type="text/javascript" src="lib/angular/angular-route.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/fact.js"></script>
+
+</head>
+
+
+<body ng-Controller="listaCtrl">
+	<table>
+		<tr ng-repeat='cli in clientes'>
+			<td>{{cli.nome}}</td>
+		</tr>
+	</table>
+</body>
+</html>

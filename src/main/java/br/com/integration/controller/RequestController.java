@@ -33,14 +33,6 @@ public class RequestController {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("integration");
 		EntityManager manager = factory.createEntityManager();
 		
-		manager.getTransaction().begin();
-		Contato contato = new Contato();
-		contato.setNome("alisson");
-		contato.setOperadora(OperadoraEnum.OI);
-		contato.setTelefone("987967254");
-		manager.persist(contato);
-		manager.getTransaction().commit();
-		
 		Query query = manager.createQuery("select c from ClienteEntity c");
 		List<ClienteEntity> lista = query.getResultList();
 		

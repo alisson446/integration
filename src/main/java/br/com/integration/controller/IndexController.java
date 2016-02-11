@@ -5,18 +5,18 @@ import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
 
 @Resource
-@Path(value = "/index")
+@Path(value = "/")
 public class IndexController {
 
-	private final Result result;
-
+private Result result;
+	
 	public IndexController(Result result) {
 		this.result = result;
 	}
-
-	@Path("/")
+	
+	@Path(value = "/index")
 	public void index() {
-		result.include("nome", "alisson");
+		result.redirectTo("index.html");
 	}
 	
 }
