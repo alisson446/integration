@@ -1,33 +1,50 @@
-angular.module("listaTele", ['ngResource', 'ngRoute']).config(function ($routeProvider) {
-	$routeProvider
+angular.module("listaTele", [ 'ngResource', 'ngRoute' ]).config(
+		function($routeProvider) {
+			$routeProvider.when('/', {
+				controller : 'listaCtrl'
+			});
 
-	.when('/', {
-		controller: 'listaCtrl'
-	})
+		});
 
-	.otherwise({
-		redirectTo: '/'
-	});
+angular.module("listaTele").factory('Contatos',	[ '$resource', function($resource) {
+			return $resource('', {}, {
+				lista : {
+					method : 'GET',
+					url : 'http://localhost:8089/integration/request/obter',
+					isArray : true
+				},
+				salvar : {
+					method : 'POST',
+					url : '#',
+					isArray : true
+				},
+				excluir : {
+					method : 'GET',
+					url : '#',
+					isArray : true
+				},
+				fluxoSelected : {
+					method : 'GET',
+					url : '#',
+					isArray : true
+				}
+			});
+		} ]);
 
-});
-
-angular.module("listaTele").factory('Contatos', ['$resource', function ($resource) {
-	return $resource('', {}, {
-		lista: {
-			method: 'GET',
-			url: 'http://localhost:8080/integration/request/obter',
-			isArray: true
-		}
-	});
-}]);
-
-angular.module("listaTele").controller("listaCtrl", function ($scope, Contatos) {
+angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 
 	Contatos.lista(function(data) {
 		$scope.clientes = angular.fromJson(data);
-	},function(erro) {
+	}, function(erro) {
 		console.log(erro);
 	});
 
-});
+	$scope.salvar = function() {
+		Contatos.salvar(function() {
+			
+		}, function(erro) {
+			console.log(erro);
+		});
+	};
 
+});
