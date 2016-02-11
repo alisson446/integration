@@ -5,7 +5,7 @@
 	<persistence-unit name="integration" transaction-type="RESOURCE_LOCAL">
 
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<class>br.com.integration.model.ClienteEntity</class>
+		<class>br.com.integration.model.TbFluxoCaixa</class>
 
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
