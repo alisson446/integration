@@ -25,7 +25,7 @@ angular.module("listaTele").factory('Contatos',	[ '$resource', function($resourc
 		},
 		fluxoSelected : {
 			method : 'GET',
-			url : '#',
+			url : 'http://localhost:8080/integration/index/exibir/:codigoFluxo',
 			isArray : true
 		}
 	});
