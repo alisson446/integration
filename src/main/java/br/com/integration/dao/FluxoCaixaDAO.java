@@ -2,6 +2,10 @@ package br.com.integration.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -17,13 +21,31 @@ public class FluxoCaixaDAO implements IFluxoCaixaDAO {
 	private Criteria criteria;
 	private TbFluxoCaixa fluxoSelecionado;
 	
+	private EntityManagerFactory emf;
+	EntityManager em;
+	
+	public FluxoCaixaDAO(){
+		emf = Persistence.createEntityManagerFactory("integration");
+	}
+	
+	public void openSession() {
+		em = emf.createEntityManager();
+		session = em.unwrap(Session.class);
+	}
+	
+	public void closeSession() {
+		em.close();
+		emf.close();
+	}
 	
 	@Override
 	public List<TbFluxoCaixa> todos() throws Exception {
 		try {
+			openSession();
 			criteria = session.createCriteria(TbFluxoCaixa.class);
-			List fluxosCadastrados = criteria.list();
+			List<TbFluxoCaixa> fluxosCadastrados = criteria.list();
 			
+			closeSession();
 			return fluxosCadastrados;
 		} catch(Exception e) {
 			throw e;
@@ -33,30 +55,37 @@ public class FluxoCaixaDAO implements IFluxoCaixaDAO {
 	@Override
 	public void salvar(TbFluxoCaixa fluxoCaixa) throws Exception {
 		try {
+			openSession();
 			transaction = session.beginTransaction();
 			session.save(fluxoCaixa);
 			transaction.commit();
+			closeSession();
 		} catch(Exception e) {
 			throw e;
 		}
 	}
 	
 	public boolean verificar(String codigoFluxo) {
+		openSession();
 		criteria = session.createCriteria(TbFluxoCaixa.class);
 		criteria.add(Restrictions.eq("codigofluxo", codigoFluxo));
 		
 		if(criteria.list().isEmpty()) {
 			return false;
 		}
+		
+		closeSession();
 		return true;
 	}
 	
 	public TbFluxoCaixa exibirFluxoCaixa(String codigoFluxo) throws Exception {
 		try {
+			openSession();
 			criteria = session.createCriteria(TbFluxoCaixa.class);
 			criteria.add(Restrictions.eq("codigofluxo", codigoFluxo));
 			fluxoSelecionado = (TbFluxoCaixa) criteria.uniqueResult();
 			
+			closeSession();
 			return fluxoSelecionado;
 		} catch(Exception e) {
 			throw e;
@@ -66,9 +95,11 @@ public class FluxoCaixaDAO implements IFluxoCaixaDAO {
 	@Override
 	public void editar(TbFluxoCaixa fluxoCaixa) throws Exception {
 		try {
+			openSession();
 			transaction = session.beginTransaction();
 			session.merge(fluxoCaixa);
 			transaction.commit();
+			closeSession();
 		} catch(Exception e) {
 			throw e;
 		}
@@ -77,11 +108,13 @@ public class FluxoCaixaDAO implements IFluxoCaixaDAO {
 	@Override
 	public void excluir(String codigoFluxo) throws Exception {
 		try {
+			openSession();
 			criteria = session.createCriteria(TbFluxoCaixa.class);
 			criteria.add(Restrictions.eq("codigofluxo", codigoFluxo));
 			fluxoSelecionado = (TbFluxoCaixa) criteria.uniqueResult();
 			
 			session.delete(fluxoSelecionado);
+			closeSession();
 		} catch(Exception e) {
 			throw e;
 		}

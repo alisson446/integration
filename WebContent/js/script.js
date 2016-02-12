@@ -8,15 +8,16 @@ angular.module("listaTele", [ 'ngResource', 'ngRoute' ]).config(
 
 angular.module("listaTele").factory('Contatos',	[ '$resource', function($resource) {
 			return $resource('', {}, {
-				lista : {
+				todos : {
 					method : 'GET',
-					url : 'http://localhost:8089/integration/request/obter',
+					url : 'http://localhost:8080/integration/index/todos',
 					isArray : true
 				},
 				salvar : {
 					method : 'POST',
-					url : '#',
-					isArray : true
+					url : 'http://localhost:8080/integration/index/salvar/:caixa',
+					params: {caixa: '@caixa'},	
+					isArray: true
 				},
 				excluir : {
 					method : 'GET',
@@ -33,16 +34,18 @@ angular.module("listaTele").factory('Contatos',	[ '$resource', function($resourc
 
 angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 
-	Contatos.lista(function(data) {
-		$scope.clientes = angular.fromJson(data);
+	$scope.caixa = {};
+	
+	/*Contatos.todos(function(data) {
+		$scope.fluxos = angular.fromJson(data);
 	}, function(erro) {
+		$scope.fluxos = null;
 		console.log(erro);
-	});
+	});*/
 
-	$scope.salvar = function() {
-		Contatos.salvar(function() {
-			
-		}, function(erro) {
+	$scope.salvar = function(caixa) {
+		Contatos.salvar({caixa:caixa}, function(erro) {
+			$scope.caixa = null;
 			console.log(erro);
 		});
 	};

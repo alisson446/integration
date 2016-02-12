@@ -3,6 +3,9 @@ package br.com.integration.controller;
 import static br.com.caelum.vraptor.view.Results.json;
 import static br.com.caelum.vraptor.view.Results.status;
 
+import java.util.List;
+
+import br.com.caelum.vraptor.Consumes;
 import br.com.caelum.vraptor.Get;
 import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
@@ -24,25 +27,25 @@ public class IndexController {
 	
 	public IndexController(Result result) {
 		this.result = result;
+		fluxoDAO = new FluxoCaixaDAO();
+	}
+	
+	@Path(value = "/")
+	public void index() throws Exception {
+		result.redirectTo("../index.html");
 	}
 	
 	@Get
-	@Path(value = "/")
-	public void index() throws Exception {
-		result.redirectTo("index.html");
-		
-		result.use(json()).withoutRoot().from(fluxoDAO.todos()).serialize();
+	@Path(value = "/todos")
+	public void todos() throws Exception {
+		List<TbFluxoCaixa> todos = fluxoDAO.todos();
+		result.use(json()).withoutRoot().from(todos).serialize();
 	}
 	
 	@Post
-	@Path(value = "/salvar/{fluxo}")
-	public void salvar(TbFluxoCaixa fluxo) throws Exception {
-		validator = fluxoRn.validarSalvar(fluxo);
-		
-		if(validator.hasErrors()) {
-			validator.onErrorSendBadRequest();
-		}
-		fluxoDAO.salvar(fluxo);
+	@Path(value = "/salvar/{caixa}")
+	public void salvar(TbFluxoCaixa caixa) throws Exception {
+		fluxoDAO.salvar(caixa);
 		
 		result.use(status()).ok();
 	}
@@ -55,6 +58,7 @@ public class IndexController {
 	}
 	
 	@Post
+	@Consumes("application/json")
 	@Path(value = "/exibir/{fluxo}")
 	public void editar(TbFluxoCaixa fluxo) throws Exception {
 		fluxoDAO.editar(fluxo);
@@ -62,6 +66,7 @@ public class IndexController {
 	}
 	
 	@Post
+	@Consumes("application/json")
 	@Path(value = "/exibir/{codigoFluxo}")
 	public void excluir(String codigoFluxo) throws Exception {
 		fluxoDAO.excluir(codigoFluxo);
