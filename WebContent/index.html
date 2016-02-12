@@ -43,11 +43,11 @@
 				<td><strong>Ações</strong></td>
 			</tr>
 			<tr ng-repeat="fluxo in fluxos | filter:buscar">
-				<td>{{fluxo.codigofluxo}}</td>
-				<td>{{fluxo.descrifluxo}}</td>
-				<td>{{fluxo.tipofluxo}}</td>
-				<td>{{fluxo.classefluxo}}</td>
-				<td>{{fluxo.statusfluxo}}</td>
+				<td>{{fluxo.codigoFluxo}}</td>
+				<td>{{fluxo.descricao}}</td>
+				<td>{{fluxo.tipo}}</td>
+				<td>{{fluxo.classe}}</td>
+				<td>{{fluxo.status}}</td>
 				<td>ed</td>
 			</tr>
 		</table>
@@ -66,14 +66,14 @@
 					</div>
 					<div class="row">
 						<div class="small-4 medium-4 large-2 columns">
-							<label>Código</label> <input type="text" ng-model="caixa.codigofluxo" />
+							<label>Código</label> <input type="text" ng-model="caixa.codigoFluxo" />
 						</div>
 						<div class="small-4 medium-4 large-6 columns">
-							<label>Descrição</label> <input type="text" ng-model="caixa.descrifluxo" />
+							<label>Descrição</label> <input type="text" ng-model="caixa.descricao" />
 						</div>
 						<div class="small-4 medium-4 large-4 columns">
 							<label>Status</label> 
-							<select ng-model="caixa.statusfluxo">
+							<select ng-model="caixa.status">
 								<option value="Analítico">Analítico</option>
 								<option value="Sintético">Sintético</option>
 							</select>
@@ -84,23 +84,23 @@
 							<div class="row">
 								<div class="small-3 medium-3 large-3 columns">
 									<label>Tipo</label>
-									<select ng-model="caixa.tipofluxo">
+									<select ng-model="caixa.tipo">
 										<option value="Entrada">Entrada</option>
 										<option value="Saída">Saída</option>
 									</select>
 								</div>
 								<div class="small-3 medium-3 large-3 columns">
 									<label>Classe</label>
-									<select ng-model="caixa.classefluxo">
+									<select ng-model="caixa.classe">
 										<option value="Patrimonial">Patrimonial</option>
 										<option value="Resultado">Resultado</option>
 									</select>
 								</div>
 								<div class="small-3 medium-3 large-3 columns">
-									<label>Código Contábil</label> <input type="text" ng-model="caixa.ctbconta" />
+									<label>Código Contábil</label> <input type="text" ng-model="caixa.contaContabil" />
 								</div>
 								<div class="small-3 medium-3 large-3 columns">
-									<label>Apêndice Contábil</label> <input type="text" ng-model="caixa.ctbapendi" />
+									<label>Apêndice Contábil</label> <input type="text" ng-model="caixa.apendiceContabil" />
 								</div>
 							</div>
 							<hr>

@@ -11,10 +11,8 @@ import br.com.caelum.vraptor.Path;
 import br.com.caelum.vraptor.Post;
 import br.com.caelum.vraptor.Resource;
 import br.com.caelum.vraptor.Result;
-import br.com.caelum.vraptor.Validator;
 import br.com.integration.dao.FluxoCaixaDAO;
 import br.com.integration.model.TbFluxoCaixa;
-import br.com.integration.rn.FluxoCaixaRn;
 
 @Resource
 @Path(value = "/index")
@@ -22,14 +20,15 @@ public class IndexController {
 
 	private Result result;
 	private FluxoCaixaDAO fluxoDAO;
-	private FluxoCaixaRn fluxoRn;
-	private Validator validator;
+	/*private FluxoCaixaRn fluxoRn;
+	private Validator validator;*/
 	
 	public IndexController(Result result) {
 		this.result = result;
 		fluxoDAO = new FluxoCaixaDAO();
 	}
 	
+	@Get
 	@Path(value = "/")
 	public void index() throws Exception {
 		result.redirectTo("../index.html");
@@ -43,9 +42,15 @@ public class IndexController {
 	}
 	
 	@Post
-	@Path(value = "/salvar/{caixa}")
-	public void salvar(TbFluxoCaixa caixa) throws Exception {
-		fluxoDAO.salvar(caixa);
+	@Consumes(value="application/json")
+	@Path(value = "/salvar/{fluxo}")
+	public void salvar(TbFluxoCaixa fluxo) throws Exception {
+		/*validator = fluxoRn.validarSalvar(fluxo);
+		
+		if(validator.hasErrors()) {
+			validator.onErrorSendBadRequest();
+		}*/
+		fluxoDAO.salvar(fluxo);
 		
 		result.use(status()).ok();
 	}

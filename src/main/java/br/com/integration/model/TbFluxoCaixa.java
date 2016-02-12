@@ -17,7 +17,7 @@ public class TbFluxoCaixa implements Serializable {
 	@Column(name = "codigofluxo", nullable = false)
 	private String codigoFluxo;
 
-	@Column(name = "descrifluxo", nullable = false)
+	@Column(name = "descrifluxo", nullable = false)	
 	private String descricao;
 
 	@Column(name = "tipofluxo", nullable = false)
