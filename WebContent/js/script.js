@@ -15,12 +15,13 @@ angular.module("listaTele").factory('Contatos',	[ '$resource', function($resourc
 		},
 		save : {
 			method : 'POST',
-			url : 'http://localhost:8080/integration/index/salvar/:fluxo2',
-			params: {fluxo2: '@fluxo'}
+			url : 'http://localhost:8080/integration/index/salvar/:fluxoparams',
+			params: {fluxoparams: '@fluxo'}
 		},
 		excluir : {
-			method : 'GET',
-			url : '#',
+			method : 'POST',
+			url : 'http://localhost:8080/integration/index/excluir/:fluxocod',
+			params : {fluxocod: '@codigoflux'},
 			isArray : true
 		},
 		fluxoSelected : {
@@ -41,11 +42,20 @@ angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 	});
 
 	$scope.salvar = function(fluxo) {
-		var fc = fluxo;
-		Contatos.save({fluxo: fc}, function(erro) {
+		var x = fluxo;
+		Contatos.save({fluxo: x}, function() {
 			$scope.caixa = null;
-			console.log(erro);
+		});
+	};
+	
+	$scope.deletar = function(cdgFluxo){
+		var apagar = cdgFluxo;
+		Contatos.excluir({codigoflux:apagar}, function (data) {
+			$scope.fluxos = angular.fromJson(data);
 		});
 	};
 
 });
+
+
+

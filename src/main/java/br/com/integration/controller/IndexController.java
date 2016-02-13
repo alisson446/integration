@@ -70,12 +70,12 @@ public class IndexController {
 		result.use(status()).ok();
 	}
 	
-	@Post
 	@Consumes("application/json")
-	@Path(value = "/exibir/{codigoFluxo}")
-	public void excluir(String codigoFluxo) throws Exception {
-		fluxoDAO.excluir(codigoFluxo);
-		result.use(status()).ok();
+	@Post
+	@Path(value = "/excluir/{codigoflux}")
+	public void excluir(String codigoflux) throws Exception {
+		fluxoDAO.excluir(codigoflux);
+		todos();
 	}
 	
 }
