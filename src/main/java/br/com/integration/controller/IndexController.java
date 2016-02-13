@@ -19,6 +19,7 @@ import br.com.integration.model.TbFluxoCaixa;
 public class IndexController {
 
 	private Result result;
+	private TbFluxoCaixa fluxoCaixa;
 	private FluxoCaixaDAO fluxoDAO;
 	/*private FluxoCaixaRn fluxoRn;
 	private Validator validator;*/
@@ -55,16 +56,16 @@ public class IndexController {
 		result.use(status()).ok();
 	}
 	
-	@Get
+	@Post
 	@Path(value = "/exibir/{codigoFluxo}")
 	public void exibir(String codigoFluxo) throws Exception {
-		fluxoDAO.exibirFluxoCaixa(codigoFluxo);
-		result.use(json()).withoutRoot().from(fluxoDAO.todos()).serialize();
+		fluxoCaixa = fluxoDAO.exibirFluxoCaixa(codigoFluxo);
+		result.use(json()).withoutRoot().from(fluxoCaixa).serialize();
 	}
 	
 	@Post
 	@Consumes("application/json")
-	@Path(value = "/exibir/{codigoFluxo}")
+	@Path(value = "/excluir/{codigoFluxo}")
 	public void excluir(String codigoFluxo) throws Exception {
 		fluxoDAO.excluir(codigoFluxo);
 		result.use(status()).ok();

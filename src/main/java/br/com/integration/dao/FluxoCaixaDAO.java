@@ -68,7 +68,7 @@ public class FluxoCaixaDAO implements IFluxoCaixaDAO {
 	public boolean verificar(String codigoFluxo) {
 		openSession();
 		criteria = session.createCriteria(TbFluxoCaixa.class);
-		criteria.add(Restrictions.eq("codigofluxo", codigoFluxo));
+		criteria.add(Restrictions.eq("codigoFluxo", codigoFluxo));
 		
 		if(criteria.list().isEmpty()) {
 			return false;
@@ -82,7 +82,7 @@ public class FluxoCaixaDAO implements IFluxoCaixaDAO {
 		try {
 			openSession();
 			criteria = session.createCriteria(TbFluxoCaixa.class);
-			criteria.add(Restrictions.eq("codigofluxo", codigoFluxo));
+			criteria.add(Restrictions.eq("codigoFluxo", codigoFluxo));
 			fluxoSelecionado = (TbFluxoCaixa) criteria.uniqueResult();
 			
 			closeSession();
@@ -110,7 +110,7 @@ public class FluxoCaixaDAO implements IFluxoCaixaDAO {
 		try {
 			openSession();
 			criteria = session.createCriteria(TbFluxoCaixa.class);
-			criteria.add(Restrictions.eq("codigofluxo", codigoFluxo));
+			criteria.add(Restrictions.eq("codigoFluxo", codigoFluxo));
 			fluxoSelecionado = (TbFluxoCaixa) criteria.uniqueResult();
 			
 			session.delete(fluxoSelecionado);

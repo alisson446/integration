@@ -13,6 +13,8 @@ public class FluxoCaixaRn implements IFluxoCaixaRn{
 	
 	@Override
 	public Validator validarSalvar(TbFluxoCaixa fluxo) {
+		validator.validate(fluxo);
+		
 		validator.checking(new Validations() { {
 	        that(!fluxoDAO.verificar(fluxo.getCodigoFluxo()), "erro", "codigo.ja.existente");
 	    } });
