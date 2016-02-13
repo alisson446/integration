@@ -57,7 +57,7 @@ public class FluxoCaixaDAO implements IFluxoCaixaDAO {
 		try {
 			openSession();
 			transaction = session.beginTransaction();
-			session.save(fluxoCaixa);
+			em.merge(fluxoCaixa);
 			transaction.commit();
 			closeSession();
 		} catch(Exception e) {

@@ -64,14 +64,6 @@ public class IndexController {
 	
 	@Post
 	@Consumes("application/json")
-	@Path(value = "/exibir/{fluxo}")
-	public void editar(TbFluxoCaixa fluxo) throws Exception {
-		fluxoDAO.editar(fluxo);
-		result.use(status()).ok();
-	}
-	
-	@Post
-	@Consumes("application/json")
 	@Path(value = "/exibir/{codigoFluxo}")
 	public void excluir(String codigoFluxo) throws Exception {
 		fluxoDAO.excluir(codigoFluxo);
