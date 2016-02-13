@@ -1,4 +1,4 @@
-angular.module("listaTele", [ 'ngResource', 'ngRoute' ]).config(
+angular.module("listaTele", ['ngResource', 'ngRoute']).config(
 		function($routeProvider) {
 			$routeProvider.when('/', {
 				controller : 'listaCtrl'
@@ -6,7 +6,7 @@ angular.module("listaTele", [ 'ngResource', 'ngRoute' ]).config(
 
 		});
 
-angular.module("listaTele").factory('Contatos',	[ '$resource', function($resource) {
+angular.module("listaTele").factory('Contatos',	['$resource', function($resource) {
 	return $resource('', {}, {
 		todos : {
 			method : 'GET',
@@ -18,15 +18,15 @@ angular.module("listaTele").factory('Contatos',	[ '$resource', function($resourc
 			url : 'http://localhost:8080/integration/index/salvar/:fluxoparams',
 			params: {fluxoparams: '@fluxo'}
 		},
+		fluxoSelected : {
+			method : 'POST',
+			url : 'http://localhost:8080/integration/index/exibir/:codigoFluxo',
+			params: {codigoFluxo: '@cod'},
+		},
 		excluir : {
 			method : 'POST',
 			url : 'http://localhost:8080/integration/index/excluir/:fluxocod',
 			params : {fluxocod: '@codigoflux'},
-			isArray : true
-		},
-		fluxoSelected : {
-			method : 'GET',
-			url : 'http://localhost:8080/integration/index/exibir/:codigoFluxo',
 			isArray : true
 		}
 	});
@@ -41,9 +41,17 @@ angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 		console.log(erro);
 	});
 
-	$scope.salvar = function(fluxo) {
-		var x = fluxo;
-		Contatos.save({fluxo: x}, function() {
+	$scope.show = function(screen, codFluxo) {
+		if(screen == 'cadastrar') {
+			$scope.titleModal = 'Adicionar';
+		}else {
+			$scope.titleModal = 'Editar';
+			exibirEdicao(codFluxo);
+		}
+	};
+
+	$scope.salvar = function(fc) {
+		Contatos.save({fluxo: fc}, function() {
 			$scope.caixa = null;
 		});
 	};
@@ -55,7 +63,10 @@ angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 		});
 	};
 
-});
+	var exibirEdicao = function(codFluxo) {
+		Contatos.fluxoSelected({cod: codFluxo}, function(data) {
+			$scope.caixa = angular.fromJson(data);
+		});
+	};
 
-
-
+}]);

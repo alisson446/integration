@@ -24,10 +24,10 @@ public class TbFluxoCaixa implements Serializable {
 	private String tipo;
 
 	@Column(name = "classefluxo", nullable = false)
-	private Character classe;
+	private String classe;
 
 	@Column(name = "statusfluxo")
-	private Character status;
+	private String status;
 
 	@Column(name = "ctbconta")
 	private String contaContabil;
@@ -59,19 +59,19 @@ public class TbFluxoCaixa implements Serializable {
 		this.tipo = tipo;
 	}
 
-	public Character getClasse() {
+	public String getClasse() {
 		return classe;
 	}
 
-	public void setClasse(Character classe) {
+	public void setClasse(String classe) {
 		this.classe = classe;
 	}
 
-	public Character getStatus() {
+	public String getStatus() {
 		return status;
 	}
 
-	public void setStatus(Character status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
