@@ -1,10 +1,4 @@
-angular.module("listaTele", ['ngResource', 'ngRoute']).config(
-		function($routeProvider) {
-			$routeProvider.when('/', {
-				controller : 'listaCtrl'
-			});
-
-		});
+angular.module("listaTele", ['ngResource', 'ngRoute']);
 
 angular.module("listaTele").factory('Contatos',	['$resource', function($resource) {
 	return $resource('', {}, {
@@ -41,6 +35,7 @@ angular.module("listaTele").controller("listaCtrl", ["$scope", "Contatos", "$roo
 	});
 
 	$scope.show = function(screen, codFluxo) {
+		$scope.caixa = null;
 		if(screen == 'cadastrar') {
 			$scope.titleModal = 'Adicionar';
 		}else {
@@ -50,9 +45,7 @@ angular.module("listaTele").controller("listaCtrl", ["$scope", "Contatos", "$roo
 	};
 
 	$scope.salvar = function(fc) {
-		Contatos.save({fluxo: fc}, function() {
-			$scope.caixa = null;
-		});
+		Contatos.save({fluxo: fc}, function() {});
 	};
 
 	var exibirEdicao = function(codFluxo) {
