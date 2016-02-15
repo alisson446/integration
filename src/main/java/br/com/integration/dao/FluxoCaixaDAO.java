@@ -2,10 +2,6 @@ package br.com.integration.dao;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-import javax.annotation.PreDestroy;
-import javax.ejb.AfterCompletion;
-import javax.ejb.BeforeCompletion;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -29,21 +25,20 @@ public class FluxoCaixaDAO implements IFluxoCaixaDAO {
 	EntityManager em;
 	
 	public FluxoCaixaDAO(){
-		emf = Persistence.createEntityManagerFactory("integration");
-	}
-	
-	@PreDestroy
-	public void destroy(){
-		emf.close();
-	}
+		
+	}	
 	
 	public void openSession() {
+		if (emf == null || !emf.isOpen()){
+			emf = Persistence.createEntityManagerFactory("integration");
+		}
 		em = emf.createEntityManager();
 		session = em.unwrap(Session.class);
 	}
 	
 	public void closeSession() {
 		em.close();
+		emf.close();
 	}
 	
 	@Override

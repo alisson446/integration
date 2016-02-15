@@ -1,7 +1,6 @@
 package br.com.integration.controller;
 
 import static br.com.caelum.vraptor.view.Results.json;
-import static br.com.caelum.vraptor.view.Results.status;
 
 import java.util.List;
 
@@ -52,8 +51,7 @@ public class IndexController {
 			validator.onErrorSendBadRequest();
 		}*/
 		fluxoDAO.salvar(fluxo);
-		
-		result.use(status()).ok();
+		todos();
 	}
 	
 	@Post
@@ -63,8 +61,8 @@ public class IndexController {
 		result.use(json()).withoutRoot().from(fluxoCaixa).serialize();
 	}
 	
-	@Consumes("application/json")
 	@Post
+	@Consumes("application/json")
 	@Path(value = "/excluir/{codigoflux}")
 	public void excluir(String codigoflux) throws Exception {
 		fluxoDAO.excluir(codigoflux);

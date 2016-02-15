@@ -7,9 +7,9 @@
 <script type="text/javascript" src="lib/angular/angular-resource.js"></script>
 <script type="text/javascript" src="lib/angular/angular-route.js"></script>
 <script type="text/javascript" src="js/script.js"></script>
-<script src="lib/foundation/vendor/modernizr.js"></script>
 <link rel="stylesheet" href="lib/foundation/foundation.css" />
 <link rel="stylesheet" href="lib/foundation/normalize.css" />
+<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />
 </head>
 
 <body ng-Controller="listaCtrl">
@@ -27,94 +27,137 @@
 				placeholder="Pesquisar..." />
 		</div>
 		<div class="small-5 medium-4 large-6 columns">
-			<button data-reveal-id="myModal" class="tiny radius info" ng-click = "show('cadastrar')" >Cadastrar Fluxo de Caixa</button>
+			<button data-reveal-id="fluxoDeCaixaModal" class="tiny radius info" ng-click = "show('cadastrar')" >Cadastrar Fluxo de Caixa</button>
 		</div>
 	</div>
 
 	<div class="row">
 		<table class="small-2 medium-6 large-12 columns">
 			<tr>
-				<td><strong>Código</strong></td>
-				<td><strong>Descrição</strong></td>
-				<td><strong>Tipo</strong></td>
-				<td><strong>classe</strong></td>
-				<td><strong>Status</strong></td>
-				<td><strong>Ações</strong></td>
+				<th><a href='#' ng-click="ordenarPor('codigoFluxo'); showIcon('codigo'); iconOrder=!iconOrder">Código</a>
+					<i ng-show='codigoIcon' class="{{icon}}"></i></th>
+					
+				<th><a href='#' ng-click="ordenarPor('descricao'); showIcon('descricao'); iconOrder=!iconOrder">Descrição</a>
+					<i ng-show='descricaoIcon' class="{{icon}}"></i></th>
+					
+				<th><a href='#' ng-click="ordenarPor('tipo'); showIcon('tipo'); iconOrder=!iconOrder">Tipo</a>
+					<i ng-show='tipoIcon' class="{{icon}}"></i></th>
+					
+				<th><a href='#' ng-click="ordenarPor('classe'); showIcon('classe'); iconOrder=!iconOrder">classe</a>
+					<i ng-show='classeIcon' class="{{icon}}"></i></th>
+					
+				<th><a href='#' ng-click="ordenarPor('status'); showIcon('status'); iconOrder=!iconOrder">Status</a>
+					<i ng-show='statusIcon' class="{{icon}}"></i></th>
+					
+				<th><a>Ações</strong></th>
 			</tr>
-			<tr ng-repeat="fluxo in fluxos | filter:buscar">
+			
+			<tr ng-repeat="fluxo in fluxos | filter:buscar |orderBy: criterio: direcao">
 				<td>{{fluxo.codigoFluxo}}</td>
 				<td>{{fluxo.descricao}}</td>
 				<td>{{fluxo.tipo}}</td>
 				<td>{{fluxo.classe}}</td>
 				<td>{{fluxo.status}}</td>
 				<td>
-					<a data-reveal-id="myModal" ng-click = "show('editar', fluxo.codigoFluxo)"><img src="img/edit.png" /></a>
-					<a ng-click="deletar(fluxo.codigoFluxo)"><img src="img/exc.png" style="margin-left:12px;" /></a>
+					<a data-reveal-id="fluxoDeCaixaModal" ng-click = "show('editar', fluxo.codigoFluxo)"><img src="img/edit.png" /></a>
+					<a data-reveal-id="confirmar" ng-click = "show('deletar', fluxo.codigoFluxo)"><img src="img/exc.png" style="margin-left:12px;" /></a>
 				</td>
 			</tr>
 		</table>
 	</div>
+	
+	<!-- Modal de confirmação do delete -->
+	<div class="row">
+		<div id="confirmar" class="tiny reveal-modal" data-reveal style = "height: 220px;">
+	        <p class="lead">Confirmação</p><hr/>
+	        <a class="close-reveal-modal" aria-label="Close">&#215;</a>
+	        <p>Tem certeza que deseja excluir o fluxo de caixa {{fluxoSelecionado}}?</p>
+	        
+	        <div style="margin-top: -12px;">
+			    <div class="small-3 medium-3 large-2 large-offset-2 columns">
+					<a href="#" class="close-reveal-modal" ng-click='deletar(fluxoSelecionado)'><p class="button radius info">Deletar</p></a>
+				</div>
+			
+				<div class="small-3 medium-3 large-2 large-offset-10 columns">
+					<a href="#" class="close-reveal-modal"><p class="button radius alert">Cancelar</p></a>
+				</div>
+			</div>
+	    </div>	
+    </div>
 
-	<!-- Modal -->
+	<!-- Modal de cadastro ou edição-->
 	<div class="row">
 		<div class="small-6 medium-8 large-12 columns">
-			<div id="myModal" class="reveal-modal" data-reveal>
-				<form action="" method="post">
+			<div id="fluxoDeCaixaModal" class="reveal-modal" data-reveal style="min-height: 370px;">
+				<form method="post" name="fluxoCaixaForm">
 					<div class="row">
 						<div class="small-12 medium-12 large-12 columns">
 							<h4>{{titleModal}} Fluxo de Caixa</h4>
-							<hr>
+							<hr/>
 						</div>
 					</div>
 					<div class="row">
 						<div class="small-4 medium-4 large-2 columns">
-							<label>Código</label> <input type="text" ng-model="caixa.codigoFluxo" />		
+							<label>Código</label> <input type="text" ng-model="caixa.codigoFluxo" required maxlength="60" />		
 						</div>
+						
 						<div class="small-4 medium-4 large-6 columns">
-							<label>Descrição</label> <input type="text" ng-model="caixa.descricao" />
+							<label>Descrição</label> <input type="text" ng-model="caixa.descricao" required maxlength="60" />
 						</div>
+						
 						<div class="small-4 medium-4 large-4 columns">
 							<label>Status</label> 
-							<select ng-model="caixa.status">
+							<select ng-model="caixa.status" required>
 								<option value="Analítico">Analítico</option>
 								<option value="Sintético">Sintético</option>
 							</select>
 						</div>
 					</div>
+					
 					<div class="row">
 						<div class="small-12 medium-12 large-12 columns">
 							<div class="row">
 								<div class="small-3 medium-3 large-3 columns">
 									<label>Tipo</label>
-									<select ng-model="caixa.tipo">
+									<select ng-model="caixa.tipo" required>
 										<option value="Entrada">Entrada</option>
 										<option value="Saída">Saída</option>
 									</select>
 								</div>
+								
 								<div class="small-3 medium-3 large-3 columns">
 									<label>Classe</label>
-									<select ng-model="caixa.classe">
+									<select ng-model="caixa.classe" required>
 										<option value="Patrimonial">Patrimonial</option>
 										<option value="Resultado">Resultado</option>
 									</select>
 								</div>
+								
 								<div class="small-3 medium-3 large-3 columns">
-									<label>Código Contábil</label> <input type="text" ng-model="caixa.contaContabil" />
+									<label>Código Contábil</label> <input type="text" ng-model="caixa.contaContabil" required maxlength="60" />
 								</div>
+								
 								<div class="small-3 medium-3 large-3 columns">
-									<label>Apêndice Contábil</label> <input type="text" ng-model="caixa.apendiceContabil" />
+									<label>Apêndice Contábil</label>
+									<input type="text" name="apendiceContabil" ng-model="caixa.apendiceContabil" ng-pattern="/^\d{1}$/" required maxlength="1" />
+									<small ng-show="fluxoCaixaForm.apendiceContabil.$error.pattern" class="error">
+										O campo terá que conter apenas um número inteiro.
+									</small>
 								</div>
 							</div>
 							<hr>
 						</div>
 					</div>
+					
 					<div class="row">
 						<div class="small-3 medium-3 large-2 large-offset-8 columns">
-							<button class="button radius info" ng-click='salvar(caixa)'>Cadastrar</button>
+							<a class="close-reveal-modal" style="margin-top: -10px;">
+								<button class="button radius info" ng-disabled="!fluxoCaixaForm.$valid" ng-click='salvar(caixa, fluxoCaixaForm.$valid)'>Cadastrar</button>
+							</a>
 						</div>
-
-						<div class="small-3 medium-3 large-2 columns" style='margin-top:-12px;'>
-							<a href="#" class="close-reveal-modal" ><p class="button radius alert">Cancelar</p></a>
+	
+						<div class="small-3 medium-3 large-2 columns" style="margin-top: -10px;">
+							<a class="close-reveal-modal"><p class="button radius alert">Cancelar</p></a>
 						</div>
 					</div>
 				</form>

@@ -7,10 +7,11 @@ angular.module("listaTele").factory('Contatos',	['$resource', function($resource
 			url : 'http://localhost:8080/integration/index/todos',
 			isArray : true
 		},
-		save : {
+		salvar : {
 			method : 'POST',
 			url : 'http://localhost:8080/integration/index/salvar/:fluxoparams',
-			params: {fluxoparams: '@fluxo'}
+			params: {fluxoparams: '@fluxo'},
+			isArray : true
 		},
 		fluxoSelected : {
 			method : 'POST',
@@ -39,27 +40,69 @@ angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 		$scope.caixa = null;
 		if(screen == 'cadastrar') {
 			$scope.titleModal = 'Adicionar';
-		}else {
+		}else if(screen == 'editar'){
 			$scope.titleModal = 'Editar';
 			exibirEdicao(codFluxo);
+		}else {
+			$scope.fluxoSelecionado =codFluxo; 
 		}
 	};
-
-	$scope.salvar = function(fc) {
-		Contatos.save({fluxo: fc}, function() {});
-	};
 	
-	$scope.deletar = function(cdgFluxo){
-		var apagar = cdgFluxo;
-		Contatos.excluir({codigoflux:apagar}, function (data) {
+	$scope.showIcon = function(coluna) {
+		$scope.codigoIcon = false;
+		$scope.descricaoIcon = false;
+		$scope.tipoIcon = false;
+		$scope.classeIcon = false;
+		$scope.statusIcon = false;
+		
+		switch(coluna) {
+			case 'codigo':
+				$scope.codigoIcon = true;
+				break;
+			case 'descricao':
+				$scope.descricaoIcon = true;
+				break;
+			case 'tipo':
+				$scope.tipoIcon = true;
+				break;
+			case 'classe':
+				$scope.classeIcon = true;
+				break;
+			case 'status':
+				$scope.statusIcon = true;
+				break;
+			default:
+				break;
+		}
+		
+		if($scope.iconOrder == true) {
+			$scope.icon = 'fa fa-arrow-down';
+		}else {
+			$scope.icon = 'fa fa-arrow-up';
+		}
+	}
+
+	$scope.salvar = function(fc, valid) {
+		Contatos.salvar({fluxo: fc}, function(data) {
 			$scope.fluxos = angular.fromJson(data);
 		});
 	};
 
-	var exibirEdicao = function(codFluxo) {
+	var exibirEdicao = function(codFluxo, confirm) {
 		Contatos.fluxoSelected({cod: codFluxo}, function(data) {
 			$scope.caixa = angular.fromJson(data);
 		});
 	};
+	
+	$scope.deletar = function(codApagar){
+		Contatos.excluir({codigoflux: codApagar}, function (data) {
+			$scope.fluxos = angular.fromJson(data);
+		});
+	};
+	
+	$scope.ordenarPor = function (campo) {
+		$scope.criterio = campo;
+		$scope.direcao = !$scope.direcao;
+	};
 
-}]);
+});
