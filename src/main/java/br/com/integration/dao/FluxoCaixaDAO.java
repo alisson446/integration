@@ -2,6 +2,10 @@ package br.com.integration.dao;
 
 import java.util.List;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.ejb.AfterCompletion;
+import javax.ejb.BeforeCompletion;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -28,6 +32,11 @@ public class FluxoCaixaDAO implements IFluxoCaixaDAO {
 		emf = Persistence.createEntityManagerFactory("integration");
 	}
 	
+	@PreDestroy
+	public void destroy(){
+		emf.close();
+	}
+	
 	public void openSession() {
 		em = emf.createEntityManager();
 		session = em.unwrap(Session.class);
@@ -35,7 +44,6 @@ public class FluxoCaixaDAO implements IFluxoCaixaDAO {
 	
 	public void closeSession() {
 		em.close();
-		emf.close();
 	}
 	
 	@Override
@@ -109,15 +117,17 @@ public class FluxoCaixaDAO implements IFluxoCaixaDAO {
 	public void excluir(String codigoFluxo) throws Exception {
 		try {
 			openSession();
+			transaction = session.beginTransaction();
 			criteria = session.createCriteria(TbFluxoCaixa.class);
 			criteria.add(Restrictions.eq("codigoFluxo", codigoFluxo));
 			fluxoSelecionado = (TbFluxoCaixa) criteria.uniqueResult();
 			
 			session.delete(fluxoSelecionado);
+			transaction.commit();
 			closeSession();
 		} catch(Exception e) {
 			throw e;
-		}
+		} 
 	}
 	
 }

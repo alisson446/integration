@@ -63,12 +63,12 @@ public class IndexController {
 		result.use(json()).withoutRoot().from(fluxoCaixa).serialize();
 	}
 	
-	@Post
 	@Consumes("application/json")
-	@Path(value = "/excluir/{codigoFluxo}")
-	public void excluir(String codigoFluxo) throws Exception {
-		fluxoDAO.excluir(codigoFluxo);
-		result.use(status()).ok();
+	@Post
+	@Path(value = "/excluir/{codigoflux}")
+	public void excluir(String codigoflux) throws Exception {
+		fluxoDAO.excluir(codigoflux);
+		todos();
 	}
 	
 }

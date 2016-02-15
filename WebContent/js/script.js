@@ -9,8 +9,8 @@ angular.module("listaTele").factory('Contatos',	['$resource', function($resource
 		},
 		save : {
 			method : 'POST',
-			url : 'http://localhost:8080/integration/index/salvar/:fluxo2',
-			params: {fluxo2: '@fluxo'}
+			url : 'http://localhost:8080/integration/index/salvar/:fluxoparams',
+			params: {fluxoparams: '@fluxo'}
 		},
 		fluxoSelected : {
 			method : 'POST',
@@ -18,14 +18,15 @@ angular.module("listaTele").factory('Contatos',	['$resource', function($resource
 			params: {codigoFluxo: '@cod'},
 		},
 		excluir : {
-			method : 'GET',
-			url : '#',
+			method : 'POST',
+			url : 'http://localhost:8080/integration/index/excluir/:fluxocod',
+			params : {fluxocod: '@codigoflux'},
 			isArray : true
 		}
 	});
 } ]);
 
-angular.module("listaTele").controller("listaCtrl", ["$scope", "Contatos", "$rootScope", function($scope, Contatos, $rootScope) {
+angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 
 	Contatos.todos(function(data) {
 		$scope.fluxos = angular.fromJson(data);
@@ -46,6 +47,13 @@ angular.module("listaTele").controller("listaCtrl", ["$scope", "Contatos", "$roo
 
 	$scope.salvar = function(fc) {
 		Contatos.save({fluxo: fc}, function() {});
+	};
+	
+	$scope.deletar = function(cdgFluxo){
+		var apagar = cdgFluxo;
+		Contatos.excluir({codigoflux:apagar}, function (data) {
+			$scope.fluxos = angular.fromJson(data);
+		});
 	};
 
 	var exibirEdicao = function(codFluxo) {

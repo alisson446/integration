@@ -49,7 +49,7 @@
 				<td>{{fluxo.status}}</td>
 				<td>
 					<a data-reveal-id="myModal" ng-click = "show('editar', fluxo.codigoFluxo)"><img src="img/edit.png" /></a>
-					<a ng-click="#"><img src="img/exc.png" style="margin-left:12px;" /></a>
+					<a ng-click="deletar(fluxo.codigoFluxo)"><img src="img/exc.png" style="margin-left:12px;" /></a>
 				</td>
 			</tr>
 		</table>
@@ -68,7 +68,7 @@
 					</div>
 					<div class="row">
 						<div class="small-4 medium-4 large-2 columns">
-							<label>Código</label> <input type="text" ng-model="caixa.codigoFluxo" />
+							<label>Código</label> <input type="text" ng-model="caixa.codigoFluxo" />		
 						</div>
 						<div class="small-4 medium-4 large-6 columns">
 							<label>Descrição</label> <input type="text" ng-model="caixa.descricao" />
