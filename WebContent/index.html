@@ -9,7 +9,6 @@
 <script type="text/javascript" src="js/script.js"></script>
 <link rel="stylesheet" href="lib/foundation/foundation.css" />
 <link rel="stylesheet" href="lib/foundation/normalize.css" />
-<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css" />
 </head>
 
 <body ng-Controller="listaCtrl">
@@ -35,19 +34,19 @@
 		<table class="small-2 medium-6 large-12 columns">
 			<tr>
 				<th><a href='#' ng-click="ordenarPor('codigoFluxo'); showIcon('codigo'); iconOrder=!iconOrder">Código</a>
-					<i ng-show='codigoIcon' class="{{icon}}"></i></th>
+					<img ng-show='codigoIcon' src="img/{{icon}}" /></th>
 					
 				<th><a href='#' ng-click="ordenarPor('descricao'); showIcon('descricao'); iconOrder=!iconOrder">Descrição</a>
-					<i ng-show='descricaoIcon' class="{{icon}}"></i></th>
+					<img ng-show='descricaoIcon' src="img/{{icon}}" /></th>
 					
 				<th><a href='#' ng-click="ordenarPor('tipo'); showIcon('tipo'); iconOrder=!iconOrder">Tipo</a>
-					<i ng-show='tipoIcon' class="{{icon}}"></i></th>
+					<img ng-show='tipoIcon' src="img/{{icon}}" /></th>
 					
 				<th><a href='#' ng-click="ordenarPor('classe'); showIcon('classe'); iconOrder=!iconOrder">classe</a>
-					<i ng-show='classeIcon' class="{{icon}}"></i></th>
+					<img ng-show='classeIcon' src="img/{{icon}}" /></th>
 					
 				<th><a href='#' ng-click="ordenarPor('status'); showIcon('status'); iconOrder=!iconOrder">Status</a>
-					<i ng-show='statusIcon' class="{{icon}}"></i></th>
+					<img ng-show='statusIcon' src="img/{{icon}}" /></th>
 					
 				<th><a>Ações</strong></th>
 			</tr>
@@ -152,7 +151,7 @@
 					<div class="row">
 						<div class="small-3 medium-3 large-2 large-offset-8 columns">
 							<a class="close-reveal-modal" style="margin-top: -10px;">
-								<button class="button radius info" ng-disabled="!fluxoCaixaForm.$valid" ng-click='salvar(caixa, fluxoCaixaForm.$valid)'>Cadastrar</button>
+								<button class="button radius info" ng-disabled="!fluxoCaixaForm.$valid" ng-click='salvar(caixa)'>Cadastrar</button>
 							</a>
 						</div>
 	

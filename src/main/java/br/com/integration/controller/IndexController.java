@@ -20,8 +20,6 @@ public class IndexController {
 	private Result result;
 	private TbFluxoCaixa fluxoCaixa;
 	private FluxoCaixaDAO fluxoDAO;
-	/*private FluxoCaixaRn fluxoRn;
-	private Validator validator;*/
 	
 	public IndexController(Result result) {
 		this.result = result;
@@ -45,11 +43,6 @@ public class IndexController {
 	@Consumes(value="application/json")
 	@Path(value = "/salvar/{fluxo}")
 	public void salvar(TbFluxoCaixa fluxo) throws Exception {
-		/*validator = fluxoRn.validarSalvar(fluxo);
-		
-		if(validator.hasErrors()) {
-			validator.onErrorSendBadRequest();
-		}*/
 		fluxoDAO.salvar(fluxo);
 		todos();
 	}

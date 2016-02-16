@@ -31,9 +31,8 @@ angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 
 	Contatos.todos(function(data) {
 		$scope.fluxos = angular.fromJson(data);
-	}, function(erro) {
+	}, function() {
 		$scope.fluxos = null;
-		console.log(erro);
 	});
 
 	$scope.show = function(screen, codFluxo) {
@@ -44,7 +43,7 @@ angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 			$scope.titleModal = 'Editar';
 			exibirEdicao(codFluxo);
 		}else {
-			$scope.fluxoSelecionado =codFluxo; 
+			$scope.fluxoSelecionado = codFluxo; 
 		}
 	};
 	
@@ -76,13 +75,13 @@ angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 		}
 		
 		if($scope.iconOrder == true) {
-			$scope.icon = 'fa fa-arrow-down';
+			$scope.icon = 'arrow-down.png';
 		}else {
-			$scope.icon = 'fa fa-arrow-up';
+			$scope.icon = 'arrow-up.png';
 		}
 	}
 
-	$scope.salvar = function(fc, valid) {
+	$scope.salvar = function(fc) {
 		Contatos.salvar({fluxo: fc}, function(data) {
 			$scope.fluxos = angular.fromJson(data);
 		});
