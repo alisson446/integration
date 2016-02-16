@@ -1,4 +1,4 @@
-angular.module("listaTele", ['ngResource', 'ngRoute']);
+angular.module("listaTele", ['ngResource']);
 
 angular.module("listaTele").factory('Contatos',	['$resource', function($resource) {
 	return $resource('', {}, {
@@ -105,3 +105,6 @@ angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 	};
 
 });
+
+
+
