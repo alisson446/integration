@@ -39,8 +39,10 @@ angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 		$scope.caixa = null;
 		$scope.validacao = false;
 		if(screen == 'cadastrar') {
+			$scope.disableCod = false;
 			$scope.titleModal = 'Adicionar';
 		}else if(screen == 'editar'){
+			$scope.disableCod = true;
 			$scope.titleModal = 'Editar';
 			exibirEdicao(codFluxo);
 		}else {
