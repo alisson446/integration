@@ -91,7 +91,7 @@ angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 	};
 	
 	$scope.$watch('caixa.codigoFluxo', function(newValue, oldValue) {
-		if($scope.cod!=newValue) {
+		if($scope.disableCod==false && newValue!=undefined) {
 			var todosFluxos = $scope.fluxos;
 			for(var i=0; i<=todosFluxos.length-1;i++){
 				if($scope.caixa.codigoFluxo.toString() == todosFluxos[i].codigoFluxo.toString()) {
@@ -99,16 +99,14 @@ angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 					return false; 
 				}
 			}
-		}else {
-			$scope.validacao = false;
-			return true;
 		}
+		$scope.validacao = false;
+		return true;
 	});
 
 	var exibirEdicao = function(codFluxo, confirm) {
 		Contatos.fluxoSelected({cod: codFluxo}, function(data) {
-			$scope.caixa = angular.fromJson(data);
-			$scope.cod = $scope.caixa.codigoFluxo; 
+			$scope.caixa = angular.fromJson(data); 
 		});
 	};
 	
