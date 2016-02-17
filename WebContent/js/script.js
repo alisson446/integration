@@ -88,20 +88,23 @@ angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 	};
 	
 	$scope.$watch('caixa.codigoFluxo', function(newValue, oldValue) {
-		var todosFluxos = $scope.fluxos;
-		for(var i=0; i<=todosFluxos.length-1;i++){
-			if($scope.caixa.codigoFluxo.toString() == todosFluxos[i].codigoFluxo.toString()) {
-				$scope.validacao = true;
-				return false; 
+		if($scope.cod!=newValue) {
+			var todosFluxos = $scope.fluxos;
+			for(var i=0; i<=todosFluxos.length-1;i++){
+				if($scope.caixa.codigoFluxo.toString() == todosFluxos[i].codigoFluxo.toString()) {
+					$scope.validacao = true;
+					return false; 
+				}
 			}
+			$scope.validacao = false;
+			return true;
 		}
-		$scope.validacao = false;
-		return true;
 	});
 
 	var exibirEdicao = function(codFluxo, confirm) {
 		Contatos.fluxoSelected({cod: codFluxo}, function(data) {
 			$scope.caixa = angular.fromJson(data);
+			$scope.cod = $scope.caixa.codigoFluxo.toString(); 
 		});
 	};
 	
