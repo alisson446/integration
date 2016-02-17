@@ -37,6 +37,7 @@ angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 
 	$scope.show = function(screen, codFluxo) {
 		$scope.caixa = null;
+		$scope.validacao = false;
 		if(screen == 'cadastrar') {
 			$scope.titleModal = 'Adicionar';
 		}else if(screen == 'editar'){
@@ -96,6 +97,7 @@ angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 					return false; 
 				}
 			}
+		}else {
 			$scope.validacao = false;
 			return true;
 		}
@@ -104,7 +106,7 @@ angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 	var exibirEdicao = function(codFluxo, confirm) {
 		Contatos.fluxoSelected({cod: codFluxo}, function(data) {
 			$scope.caixa = angular.fromJson(data);
-			$scope.cod = $scope.caixa.codigoFluxo.toString(); 
+			$scope.cod = $scope.caixa.codigoFluxo; 
 		});
 	};
 	
