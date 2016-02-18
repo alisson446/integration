@@ -31,8 +31,10 @@
 			<button data-reveal-id="fluxoDeCaixaModal" class="tiny radius info" ng-click = "show('cadastrar')" >Cadastrar Fluxo de Caixa</button>
 		</div>
 	</div>
-
-	<div class="row">
+	
+	<div ng-show="load" style="margin-left: 40%; margin-top: 100px;"><img src="img/load/load.gif"/></div>
+	
+	<div class="row" ng-show="!load">
 		<table class="small-2 medium-6 large-12 columns">
 			<tr>
 				<th><a href='#' ng-click="ordenarPor('codigoFluxo'); showIcon('codigo'); iconOrder=!iconOrder">Código</a>
@@ -90,6 +92,7 @@
 	<div class="row">
 		<div class="small-6 medium-8 large-12 columns">
 			<div id="fluxoDeCaixaModal" class="reveal-modal" data-reveal style="min-height: 370px;">
+				<a class="close-reveal-modal" aria-label="Close">&#215;</a>
 				<form method="post" name="fluxoCaixaForm">
 					<div class="row">
 						<div class="small-12 medium-12 large-12 columns">
@@ -167,14 +170,14 @@
 					</div>
 	
 					<div class="row">
-						<div class="small-6 medium-6 large-6 columns" ng-show="validacao">
-							<div data-alert class="alert-box alert round">
+						<div class="small-6 medium-6 large-6 columns" >
+							<small ng-show="validacao" class="error">
 								Código já existente.
+							</small>
 							</div>
 						</div>
 					</div>								
 				</form>
-				<a class="close-reveal-modal" aria-label="Close">&#215;</a>
 			</div>
 		</div>
 	</div>

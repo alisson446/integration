@@ -5,7 +5,7 @@ angular.module("listaTele").factory('Contatos',	['$resource', function($resource
 		todos : {
 			method : 'GET',
 			url : 'http://localhost:8080/integration/index/todos',
-			isArray : true
+			isArray : true,
 		},
 		salvar : {
 			method : 'POST',
@@ -27,13 +27,16 @@ angular.module("listaTele").factory('Contatos',	['$resource', function($resource
 	});
 } ]);
 
-angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
+angular.module("listaTele").controller("listaCtrl", function($scope, Contatos, $timeout) {
 
 	Contatos.todos(function(data) {
-		$scope.fluxos = angular.fromJson(data);
+		$timeout(function() {
+			$scope.load=false;
+			$scope.fluxos = angular.fromJson(data);
+		}, 300)
 	}, function() {
 		$scope.fluxos = null;
-	});
+	}, $scope.load = true);
 
 	$scope.show = function(screen, codFluxo) {
 		$scope.caixa = null;
@@ -122,6 +125,3 @@ angular.module("listaTele").controller("listaCtrl", function($scope, Contatos) {
 	};
 
 });
-
-
-
