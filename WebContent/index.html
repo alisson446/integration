@@ -28,7 +28,7 @@
 				placeholder="Pesquisar..." />
 		</div>
 		<div class="small-5 medium-4 large-6 columns">
-			<button data-reveal-id="fluxoDeCaixaModal" class="tiny radius info" ng-click = "show('cadastrar')" >Cadastrar Fluxo de Caixa</button>
+			<button data-reveal-id="fluxoDeCaixaModal" name="botaoTest" class="tiny radius info" ng-click = "show('cadastrar')" >Cadastrar Fluxo de Caixa</button>
 		</div>
 	</div>
 	
@@ -102,11 +102,11 @@
 					</div>
 					<div class="row">
 						<div class="small-4 medium-4 large-2 columns">
-							<label>Código</label> <input type="text" ng-model="caixa.codigoFluxo" required ng-disabled=disableCod />		
+							<label>Código</label> <input type="text" ng-model="caixa.codigoFluxo" required ng-disabled=disableCod name="codigoTest" />		
 						</div>
 						
 						<div class="small-4 medium-4 large-6 columns">
-							<label>Descrição</label> <input type="text" ng-model="caixa.descricao" required maxlength="60" />
+							<label>Descrição</label> <input type="text" ng-model="caixa.descricao" required maxlength="60" name="descriTest" />
 						</div>
 						
 						<div class="small-4 medium-4 large-4 columns">
