@@ -35,7 +35,7 @@
 	<div ng-show="load" style="margin-left: 40%; margin-top: 100px;"><img src="img/load/load.gif"/></div>
 	
 	<div class="row" ng-show="!load">
-		<table class="small-2 medium-6 large-12 columns">
+		<table id="tabl" class="small-2 medium-6 large-12 columns">
 			<tr>
 				<th><a href='#' ng-click="ordenarPor('codigoFluxo'); showIcon('codigo'); iconOrder=!iconOrder">Código</a>
 					<img ng-show='codigoIcon' src="img/{{icon}}" /></th>
@@ -62,8 +62,8 @@
 				<td>{{fluxo.classe}}</td>
 				<td>{{fluxo.status}}</td>
 				<td>
-					<a data-reveal-id="fluxoDeCaixaModal" ng-click = "show('editar', fluxo.codigoFluxo)"><img src="img/edit.png" /></a>
-					<a data-reveal-id="confirmar" ng-click = "show('deletar', fluxo.codigoFluxo)"><img src="img/exc.png" style="margin-left:12px;" /></a>
+					<a data-reveal-id="fluxoDeCaixaModal" id="editar_{{fluxo.codigoFluxo}}" ng-click = "show('editar', fluxo.codigoFluxo)"><img src="img/edit.png" /></a>
+					<a data-reveal-id="confirmar" id="excluir_{{fluxo.codigoFluxo}}" ng-click = "show('deletar', fluxo.codigoFluxo)"><img src="img/exc.png" style="margin-left:12px;" /></a>
 				</td>
 			</tr>
 		</table>
@@ -78,7 +78,7 @@
 	        
 	        <div style="margin-top: -12px;">
 			    <div class="small-3 medium-3 large-2 large-offset-2 columns">
-					<a href="#" class="close-reveal-modal" ng-click='deletar(fluxoSelecionado)'><p class="button radius info">Deletar</p></a>
+					<a href="#" id="dell" class="close-reveal-modal" ng-click='deletar(fluxoSelecionado)'><p class="button radius info">Deletar</p></a>
 				</div>
 			
 				<div class="small-3 medium-3 large-2 large-offset-10 columns">
@@ -112,8 +112,8 @@
 						<div class="small-4 medium-4 large-4 columns">
 							<label>Status</label> 
 							<select ng-model="caixa.status" required>
-								<option value="Analítico">Analítico</option>
-								<option value="Sintético">Sintético</option>
+								<option id="slc" value="Analítico">Analítico</option>
+								<option id="slctwo" value="Sintético">Sintético</option>
 							</select>
 						</div>
 					</div>
@@ -124,26 +124,26 @@
 								<div class="small-3 medium-3 large-3 columns">
 									<label>Tipo</label>
 									<select ng-model="caixa.tipo" required>
-										<option value="Entrada">Entrada</option>
-										<option value="Saída">Saída</option>
+										<option id="slc2" value="Entrada">Entrada</option>
+										<option id="slc2two" value="Saída">Saída</option>
 									</select>
 								</div>
 								
 								<div class="small-3 medium-3 large-3 columns">
 									<label>Classe</label>
 									<select ng-model="caixa.classe" required>
-										<option value="Patrimonial">Patrimonial</option>
-										<option value="Resultado">Resultado</option>
+										<option id="slc3" value="Patrimonial">Patrimonial</option>
+										<option id="slc3two" value="Resultado">Resultado</option>
 									</select>
 								</div>
 								
 								<div class="small-3 medium-3 large-3 columns">
-									<label>Código Contábil</label> <input type="text" ng-model="caixa.contaContabil" required maxlength="60" />
+									<label>Código Contábil</label> <input type="text" name="contaTest" ng-model="caixa.contaContabil" required maxlength="60" />
 								</div>
 								
 								<div class="small-3 medium-3 large-3 columns">
 									<label>Apêndice Contábil</label>
-									<input type="text" name="apendiceContabil" ng-model="caixa.apendiceContabil" ng-pattern="/^\d{1}$/" required maxlength="1" />
+									<input type="text" name="apendiceContabil" id="apendTest" ng-model="caixa.apendiceContabil" ng-pattern="/^\d{1}$/" required maxlength="1" />
 								</div>
 							</div>
 							<hr>
