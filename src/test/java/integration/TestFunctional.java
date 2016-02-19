@@ -85,7 +85,7 @@ public class TestFunctional {
 	    Selectbox3.click();
 		WebElement conta = driver.findElement(By.name("contaTest"));
 		conta.sendKeys("Conta ");
-		WebElement apend = driver.findElement(By.id("apendTest"));
+		WebElement apend = driver.findElement(By.name("apendiceContabil"));
 		apend.sendKeys("5");
 		
 		WebElement submit = driver.findElement(By.id("cadastrar"));

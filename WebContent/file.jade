@@ -123,7 +123,7 @@ html(ng-app="listaTele")
 
 									div.small-3.medium-3.large-3.columns
 										label Apêndice Contábil
-										input#apendTest(type="text" name="apendiceContabil" ng-model="caixa.apendiceContabil" ng-pattern="/^\d{1}$/" required maxlength="1")
+										input(type="text" name="apendiceContabil" ng-model="caixa.apendiceContabil" ng-pattern="/^\\d{1}$/" required maxlength="1")
 
 							hr
 
