@@ -55,7 +55,7 @@
 				<th><a>Ações</strong></th>
 			</tr>
 			
-			<tr ng-repeat="fluxo in fluxos | filter:buscar |orderBy: criterio: direcao">
+			<tr ng-repeat="fluxo in fluxos | filter:{descricao:buscar} |orderBy: criterio: direcao">
 				<td>{{fluxo.codigoFluxo | limitTo: 15}}{{fluxo.codigoFluxo.length > 15 ? "..." : "" }}</td>
 				<td>{{fluxo.descricao | limitTo: 20}}{{fluxo.codigoFluxo.length > 20 ? "..." : "" }}</td>
 				<td>{{fluxo.tipo}}</td>
