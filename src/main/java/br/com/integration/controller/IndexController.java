@@ -29,7 +29,7 @@ public class IndexController {
 	@Get
 	@Path(value = "/")
 	public void index() throws Exception {
-		result.redirectTo("../index.html");
+		result.redirectTo("../file.html");
 	}
 	
 	@Get

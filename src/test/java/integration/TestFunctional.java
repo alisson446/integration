@@ -9,7 +9,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-
 public class TestFunctional {
 	private static WebDriver driver;
 		  
@@ -26,7 +25,7 @@ public class TestFunctional {
 	  
 	  @Test
 		public void excluir() throws InterruptedException{
-			driver.get("http://localhost:9090/integration/index.html");
+			driver.get("http://localhost:8080/integration/index.html");
 			Thread.sleep(500);
 			
 			WebElement element = driver.findElement(By.id("excluir_45"));
@@ -41,7 +40,7 @@ public class TestFunctional {
 	
 	@Test
 	public void editar() throws InterruptedException {
-		driver.get("http://localhost:9090/integration/index.html");
+		driver.get("http://localhost:8080/integration/index.html");
 		Thread.sleep(1000);
 		
 		WebElement element = driver.findElement(By.id("editar_5"));
@@ -67,7 +66,7 @@ public class TestFunctional {
 	
 	@Test
 	public void cadastrar() throws InterruptedException {
-		driver.get("http://localhost:9090/integration/index.html");
+		driver.get("http://localhost:8080/integration/index.html");
 		
 		WebElement element = driver.findElement(By.name("botaoTest"));
 		element.click();
@@ -86,7 +85,7 @@ public class TestFunctional {
 	    Selectbox3.click();
 		WebElement conta = driver.findElement(By.name("contaTest"));
 		conta.sendKeys("Conta ");
-		WebElement apend = driver.findElement(By.id("apendTest"));
+		WebElement apend = driver.findElement(By.name("apendiceContabil"));
 		apend.sendKeys("5");
 		
 		WebElement submit = driver.findElement(By.id("cadastrar"));
